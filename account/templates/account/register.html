@@ -1,0 +1,15 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+<form method='POST'>
+	{% csrf_token %}
+	<fieldset class='form-group' style='background-color: lightblue;'>
+		<h2>Join here</h2>
+		{{form.as_ul}}
+	</fieldset>
+	<div class='form-group'>
+		<button class='btn btn-primary pull-right' type='submit'>Register</button>
+	</div>
+</form>
+{% endblock %}

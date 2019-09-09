@@ -1,0 +1,36 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+{% for post in posts %}
+<div class='posts'>
+<a href="{% url 'post' post.id %}"><h2 style="display: inline;">{{post.title}}</h2></a>
+<p style="display: inline;"> at {{post.date}}</p>
+<h3>{{post.text}}</h3>
+<h4 style="display: inline;">Did you enjoy this post?</h4>
+<button class="btn btn-success" style="display: inline;" value="{{post.id}}" id="plus_{{post.id}}">{{post.pluses}}</button>
+</div>
+<br>
+{% endfor %}
+<script type="text/javascript">
+$(document).ready(function(){
+	$(document).on("click","button",function() {
+	var idOfPost =  $(this).attr('value')
+	var idOfButton = $(this).attr('id')
+    	$.ajax({
+               type: "POST",
+               url: "{% url 'plus' %}",
+               dataType: "json",
+               data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'id': idOfPost},
+               success: function(response) {
+                        document.getElementById(idOfButton).innerHTML = response.pluses
+                        
+                },
+                error: function(rs, e) {
+                    	alert("nie dziala");
+                }
+          	}); 
+  		});
+	});
+</script>
+{% endblock %}

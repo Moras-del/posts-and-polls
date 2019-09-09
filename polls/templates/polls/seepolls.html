@@ -1,0 +1,12 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+{% for poll in polls %}
+<div class="poll">
+<h2>{{poll.title}}</h2>
+<p>at {{poll.date}}</p>
+<a href="vote/{{poll.id}}" class="btn btn-primary pull-left" style="display: block;">Vote!</a>
+</div>
+{% endfor %}
+{% endblock %}

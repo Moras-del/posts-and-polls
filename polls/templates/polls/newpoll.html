@@ -1,0 +1,12 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+<form action = "{% url 'newpoll' %}" method = 'POST'>
+	{% csrf_token %}
+	<div class='newpoll'>
+	{{form.as_table}}
+</div>
+<button type = "Submit" class="btn btn-primary pull-left">Create your choices.</button>
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+<h2 style="text-align: center; border-bottom: 2px black inset;">welcome {{request.user.username}}</h2>
+<br>
+{% if posts %}
+{% for post in posts %}
+<div class="posts">
+<h2 style="display: inline;">{{post.title}}</h2>
+<p style="display: inline;"> at {{post.date}}</p>
+<form method="POST" action="{% url 'profile' %}">
+{% csrf_token %}
+<button class="btn btn-danger" style="float: right;">Delete</button>
+<input type="hidden" name="delete" value="{{post.id}}">
+</form>
+<h3>{{post.text}}</h3>
+</div>
+<br>
+{% endfor %}
+{% else %}
+<h2>You don't have any posts yet. Create your first post <a href="{% url 'newpost' %}">here!</a></h2>
+{% endif %}
+<div class="mypolls">
+<h3>Your polls:</h3>
+{% for poll in polls %}
+<div class="mypoll">
+<a href="{% url 'result' poll.id %}" style="display: inline; border-right: 1px black solid;">{{poll.title}}</a>
+<p style="display: inline;">Votes in total: {{poll.total_votes}}</p>
+<form action="{% url 'profile' %}" method="POST">
+	{% csrf_token %}
+<button class="btn btn-danger btn-sm" style="float: right;">Delete</button>
+<input type="hidden" name="deletepoll" value="{{poll.id}}">
+</form>
+<br>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+<div class='posts'>
+<h2 style="display: inline;">{{post.title}}</h2>
+<p style="display: inline;"> at {{post.date}}</p>
+<h3>{{post.text}}</h3>
+</div>
+<br>
+<h3 style="border-bottom: 2px inset black; text-align: center;">Comments ({{count}})</h3>
+<div class="sendcomment">
+<form action="{% url 'post' post.id %}" method="POST">
+	{% csrf_token %}
+	{{form.as_table}}
+<button class="btn btn-primary">Send new comment</button>
+</form>
+</div>
+<br>
+{% for comment in comments %}
+<div class="comment">
+<h4>{{comment.text}}</h4>
+<p>by {{comment.author}} at {{comment.date}}</p>
+</div>
+<br>
+
+
+{% endfor %}
+{% endblock %}

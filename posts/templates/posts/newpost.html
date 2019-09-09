@@ -1,0 +1,12 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+<form action = "{% url 'newpost' %}" method = 'POST'>
+{% csrf_token %}
+<div class="newpost">
+{{form.as_p}}
+</div>
+<button type = "Submit" class="btn btn-primary pull-left">Make new post!</button>
+</form>
+{% endblock %}

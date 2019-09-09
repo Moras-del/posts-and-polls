@@ -1,0 +1,15 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+	<h2 style="text-align: center; border-bottom: 3px black inset; border-top: 3px black solid;">{{poll.title}}</h2>
+	<form action = "{% url 'choices' poll.id %}" method = 'POST'>
+	{% csrf_token %}
+	{% for i in form %}
+	<div class="choose">
+	{{ i }}
+	</div>
+	{% endfor %}
+	<button type = "Submit" class="btn btn-primary pull-left">Make new poll!</button>
+</form>
+{% endblock %}
