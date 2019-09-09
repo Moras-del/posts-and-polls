@@ -42,7 +42,11 @@ def plus(request):
 	if request.method == "POST" and request.is_ajax():
 		id = request.POST.get('id')
 		post = Post.objects.get(id=id)
-		post.pluses += 1
-		pluses = post.pluses
-		post.save()
+		if request.user.has_perm('can_plus_post', post):
+			post.pluses += 1
+			pluses = post.pluses
+			post.save()
+			remove_perm('can_plus_post', request.user, post)
+		else:
+			pluses = post.pluses
 		return JsonResponse({'pluses': pluses})

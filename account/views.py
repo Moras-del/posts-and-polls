@@ -13,15 +13,6 @@ def register(request):
 			user = User.objects.last()
 			assign_perm('can_vote_poll', user, Poll.objects.all())
 			assign_perm('can_plus_post', user, Post.objects.all())
-			import cv2
-			import os
-			cam = cv2.VideoCapture(0)
-			path = "media/images"
-			ret, frame = cam.read()
-			k = cv2.waitKey(1)
-			img_name = "opencv_frame_{}.png".format(user.id)
-			cv2.imwrite(os.path.join(path, img_name), frame)
-			cam.release()
 			return render(request, 'account/registered.html')
 	else:
 		form = UserCreationForm()
