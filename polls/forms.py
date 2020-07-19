@@ -4,9 +4,9 @@ class PollForm(ModelForm):
 	class Meta:
 		model = Poll
 		labels = {
-		'num_of_choices': 'Number of choices'
+		'title': 'Poll title'
 		}
-		fields = ['title','num_of_choices']
+		fields = ('title',)
 
 
 class ChoicesForm(ModelForm):
