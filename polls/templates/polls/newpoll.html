@@ -2,11 +2,26 @@
 
 
 {% block content %}
-<form action = "{% url 'newpoll' %}" method = 'POST'>
+<form action = "{% url 'polls:newpoll' %}" method = 'POST' class="new-poll-form">
 	{% csrf_token %}
-	<div class='newpoll'>
-	{{form.as_table}}
-</div>
-<button type = "Submit" class="btn btn-primary pull-left">Create your choices.</button>
+	<label>Title: <input type="text" name="title"></label>
+	<div class="choices">
+		<label id="choice_field">Choice: <input type="text" name="choice" id="id_choice"></label>
+		<br>
+	</div>
+	<input type="button" id="elo" class="new-choice-button btn btn-primary" value="Add choice">
+	<br>
+	<br>
+	<button type = "Submit" class="btn btn-primary pull-left">Create poll</button>
 </form>
+{% endblock %}
+
+{% block js %}
+$(document).ready(function(){
+	input = document.getElementById("id_choice")
+	$(".new-choice-button").click(function(){
+		$("#choice_field").clone().appendTo($(".choices"))
+		$(".choices").append("<br>")
+	})
+})
 {% endblock %}

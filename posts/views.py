@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from guardian.shortcuts import remove_perm
 from guardian.shortcuts import assign_perm
 from django.http import JsonResponse
+
 def home(request):
 	return render(request, 'posts/home.html', {'posts': Post.objects.all().order_by('date').reverse()})
 

@@ -8,11 +8,11 @@
 		<th>Votes</th>
 		<th>Votes in %</th>
 	</tr>
-	{% for choice in choices %}
-	<tr style="background-color: hsl(115,{{choice.votes|mean:var}}%, 50%);">
-		<td>{{choice.choice_text}}</td>	
+	{% for choice in poll.choices.all %}
+	<tr style="background-color: hsl(115,{{choice.votes|mean:poll.total_votes}}%, 50%);">
+		<td>{{choice.text}}</td>
 		<td>{{choice.votes}}</td>
-		<td>{{choice.votes|mean:var}}%</td>
+		<td>{{choice.votes|mean:poll.total_votes}}%</td>
 	</tr>
 	{% endfor %}
 </table>

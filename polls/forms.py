@@ -1,15 +1,9 @@
-from django.forms import ModelForm
-from .models import Poll, Choices
-class PollForm(ModelForm):
-	class Meta:
-		model = Poll
-		labels = {
-		'title': 'Poll title'
-		}
-		fields = ('title',)
+from django.forms import ModelForm, BaseForm
+from django import forms
+from .models import Poll, Choice
 
 
-class ChoicesForm(ModelForm):
-	class Meta:
-		model = Choices
-		fields = ['choice_text']
+class PollForm(forms.Form):
+	title = forms.CharField(max_length=200)
+	choices = forms.CharField()
+

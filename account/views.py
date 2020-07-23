@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout as user_logout
 from posts.models import Post
-from polls.models import Poll, Choices
+from polls.models import Poll, Choice
 from guardian.shortcuts import assign_perm
+
 def register(request):
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)

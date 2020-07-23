@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
 
+app_name="polls"
+
 urlpatterns = [
-    path('', views.polls,name='polls'),
-    path('vote/<poll_id>', views.vote, name='vote'),
+    path('', views.PollsList.as_view(), name='list'),
+    path('vote/<int:pk>', views.VoteView.as_view(), name='vote'),
     path('result/<int:poll_id>', views.result, name='result'),
-    path('new/', views.newpoll, name='newpoll'),
-    path('choices/<id>', views.newpollchoices, name='choices'),
+    path('new/', views.CreatePollView.as_view(), name='newpoll'),
 ]

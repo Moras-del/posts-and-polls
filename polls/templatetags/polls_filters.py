@@ -3,7 +3,7 @@ from django import template
 
 register = template.Library()
 
-@register.filter()
+@register.filter
 def mean(a,b):
 	try:
 		var = int((a/b)*100)

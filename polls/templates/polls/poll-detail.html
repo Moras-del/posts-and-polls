@@ -1,0 +1,15 @@
+{% extends 'posts/base.html' %}
+
+
+{% block content %}
+	<h2 style="text-align: center; border-bottom: 3px black inset; border-top: 3px black solid;">{{poll.title}}</h2>
+	<form action = "{{poll.id}}" method = 'POST'>
+		{% csrf_token %}
+	{% for choice in poll.choices.all %}
+		<div class="choice">
+			<input type="radio" name="choice" value="{{choice.id}}">{{choice.text}}
+		</div>
+	{% endfor %}
+	<button type="Submit" class='btn btn-primary pull-left'>Vote!</button>
+	</form>
+{% endblock %}

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Poll(models.Model):
     title = models.CharField(max_length=200)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owned_polls")
     total_votes = models.PositiveIntegerField(null=True, default=0)
     voters = models.ManyToManyField(User, related_name="voted_polls")
@@ -16,10 +16,13 @@ class Poll(models.Model):
     def str(self):
         return self.title
 
+    class Meta:
+        ordering = ('-date',)
 
-class Choices(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
+
+class Choice(models.Model):
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name="choices")
+    text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
     def newvote(self):
@@ -27,6 +30,10 @@ class Choices(models.Model):
         self.poll.new_total_vote()
 
     def str(self):
-        return self.choice_text
+        return self.text
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.poll.save()
 
 # Create your models here.
